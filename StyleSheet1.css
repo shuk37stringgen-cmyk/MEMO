@@ -1,0 +1,354 @@
+﻿/* * カラーメモアプリ：スタイルシート 
+ * レイアウト・デザイン定義
+ */
+
+/* 変数定義：配色管理 */
+:root {
+    --header-bg: #bebebe;
+    --sidebar-bg: #d9d9d9;
+    --dashboard-bg: #ccf2ff;
+    --btn-edit-color: #ff5c5c;
+    --btn-new-color: #ffdb4d;
+}
+
+/* 基本リセット */
+body {
+    font-family: 'Hiragino Kaku Gothic ProN', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    user-select: none;
+}
+
+/* ローディング画面（スプラッシュスクリーン） */
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: fadeOut 0.5s ease-in-out 1.2s forwards;
+}
+
+.splash-logo {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #333;
+    letter-spacing: 5px;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+/* ヘッダーエリア：ロゴとアクションボタン */
+.app-header {
+    height: 60px;
+    background-color: var(--header-bg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+    .app-header .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: #000;
+    }
+
+.header-actions {
+    display: flex;
+    gap: 15px;
+}
+
+    .header-actions button {
+        border: none;
+        padding: 10px 20px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+.btn-edit {
+    background-color: var(--btn-edit-color);
+    color: black;
+    flex-shrink: 0;
+}
+
+    .btn-edit.active {
+        background-color: #b32d2d;
+        color: white;
+    }
+
+.btn-new {
+    background-color: var(--btn-new-color);
+    color: black;
+}
+
+/* メインコンテナ：サイドバーとダッシュボードのレイアウト */
+.app-container {
+    display: flex;
+    height: calc(100vh - 60px);
+    width: 100vw;
+}
+
+/* サイドバー（フォルダタブ） */
+.sidebar {
+    width: 60px;
+    background-color: var(--sidebar-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+    position: relative;
+    z-index: 10;
+}
+
+.folder-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    align-items: flex-end;
+}
+
+.tab {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    padding: 15px 8px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    border-radius: 12px 0 0 12px;
+    width: 20px;
+    text-align: center;
+    box-shadow: -2px 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+    .tab:hover {
+        transform: translateX(-4px);
+    }
+
+    .tab.active {
+        transform: translateX(-8px);
+        box-shadow: -4px 4px 8px rgba(0,0,0,0.2);
+        z-index: 11;
+    }
+
+/* フォルダカラーのバリエーション */
+.tab-purple {
+    background-color: #5b21b6;
+}
+
+.tab-red {
+    background-color: #ef4444;
+}
+
+.tab-blue {
+    background-color: #3b82f6;
+}
+
+.btn-add-folder {
+    margin-top: auto;
+    margin-bottom: 20px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 1px solid #999;
+    background: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* ダッシュボード（メモ配置エリア） */
+.dashboard {
+    flex-grow: 1;
+    background-color: var(--dashboard-bg);
+    position: relative;
+    overflow: auto;
+}
+
+/* メモボタンの基本スタイル */
+.memo-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #999;
+    cursor: pointer;
+    position: absolute;
+    user-select: none;
+    overflow: hidden;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+    color: #000000;
+    -webkit-text-stroke: 0.1px #ffffff;
+    text-shadow: 1px 1px 0 #ffffff, -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff;
+}
+
+    .memo-button.selected {
+        filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.5));
+        outline: 2px dashed #000;
+    }
+
+/* 形状バリエーション */
+.shape-image-rect {
+    border-radius: 28px;
+    border: 6px solid #000000 !important;
+}
+
+.shape-square {
+    border-radius: 4px;
+    border: 2px solid #000000 !important;
+}
+
+.shape-circle {
+    border-radius: 50%;
+    border: 2px solid #000000 !important;
+}
+
+/* モーダル共通スタイル */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    z-index: 2500;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    width: 320px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    box-sizing: border-box;
+}
+
+    .modal-content h3 {
+        margin-top: 0;
+        border-bottom: 2px solid #ccc;
+        padding-bottom: 8px;
+    }
+
+/* フォーム関連 */
+.form-group {
+    margin-bottom: 12px;
+}
+
+    .form-group label {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 0.85rem;
+        font-weight: bold;
+    }
+
+    .form-group input[type="text"], .form-group select, .form-group textarea {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .form-group textarea {
+        height: 100px;
+        resize: none;
+    }
+
+.form-group-checkbox {
+    margin: 15px 0;
+}
+
+/* モーダル内のボタン */
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+    .modal-actions button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+.btn-cancel {
+    background: #ddd;
+}
+
+.btn-submit {
+    background: #333;
+    color: white;
+}
+
+.btn-danger {
+    background: #ff4d4d;
+    color: white;
+}
+
+/* 大規模モーダル（メモ編集画面など） */
+.large-modal {
+    width: 750px !important;
+    max-width: 90vw;
+    padding: 35px !important;
+}
+
+    .large-modal h3 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+#edit-title {
+    font-size: 24px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.large-modal button {
+    font-size: 16px;
+    padding: 10px 20px;
+}
+
+#edit-content {
+    font-size: 16px;
+    height: 280px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 12px;
+    margin-bottom: 15px;
+}
+
+/* ガイドテキスト */
+.guide-text {
+    font-size: 0.85rem;
+    color: #ff5c5c;
+    font-weight: bold;
+    transition: all 0.3s;
+    margin-left: 0px;
+    margin-right: 40px;
+}
