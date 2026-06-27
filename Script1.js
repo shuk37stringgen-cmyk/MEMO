@@ -552,3 +552,43 @@ function rgbToHex(rgb) {
         ("0" + parseInt(match[2], 10).toString(16)).slice(-2) +
         ("0" + parseInt(match[3], 10).toString(16)).slice(-2);
 }
+
+// --- 新規作成画面のカウント処理 ---
+const newTitleInput = document.getElementById('new-title');
+const charCountSpan = document.getElementById('char-count');
+
+if (newTitleInput && charCountSpan) {
+    newTitleInput.addEventListener('input', () => {
+        const remaining = 100 - newTitleInput.value.length;
+        charCountSpan.innerText = `残り ${remaining} 文字`;
+        charCountSpan.style.color = remaining < 10 ? 'red' : '#666';
+    });
+}
+
+
+function updateEditCount() {
+    const editTitle = document.getElementById('edit-title');
+    const editCount = document.getElementById('edit-char-count');
+    const editContent = document.getElementById('edit-content');
+    const contentCount = document.getElementById('content-char-count');
+
+    // タイトルのカウント
+    if (editTitle && editCount) {
+        const remTitle = 100 - editTitle.value.length;
+        editCount.innerText = `残り ${remTitle} 文字`;
+        editCount.style.color = remTitle < 10 ? 'red' : '#666';
+    }
+
+    // 本文のカウント
+    if (editContent && contentCount) {
+        const remContent = 1000 - editContent.value.length;
+        contentCount.innerText = `残り ${remContent} 文字`;
+        contentCount.style.color = remContent < 50 ? 'red' : '#666';
+    }
+}
+
+// イベントリスナーも追加
+const editContentInput = document.getElementById('edit-content');
+if (editContentInput) {
+    editContentInput.addEventListener('input', updateEditCount);
+}
